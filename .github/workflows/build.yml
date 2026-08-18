@@ -1,0 +1,68 @@
+name: Build Global Pulse APKs
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract project (handles any zip path style)
+        run: |
+          python3 - <<'PY'
+          import zipfile, os, shutil
+          os.makedirs('_src', exist_ok=True)
+          z = zipfile.ZipFile('global-pulse.zip')
+          for info in z.infolist():
+              name = info.filename.replace('\\', '/')
+              if not name or name.endswith('/'):
+                  continue
+              target = os.path.join('_src', *name.split('/'))
+              os.makedirs(os.path.dirname(target), exist_ok=True)
+              with z.open(info) as s, open(target, 'wb') as d:
+                  shutil.copyfileobj(s, d)
+          print('extracted')
+          PY
+          echo "Folders:"; find _src -maxdepth 2 -type d | sort
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Build WebView app
+        working-directory: _src/android
+        run: |
+          gradle wrapper --gradle-version 8.7 --no-daemon
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Upload WebView APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-pulse-webview-apk
+          path: _src/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+      - name: Build native app
+        continue-on-error: true
+        working-directory: _src/android-native
+        run: |
+          gradle wrapper --gradle-version 8.7 --no-daemon
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Upload native APK
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-pulse-native-apk
+          path: _src/android-native/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: warn
