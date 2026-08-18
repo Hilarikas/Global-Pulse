@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Global Pulse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   GLOBAL PULSE — Premium Design System (Prototype)
+   ============================================================ */
+:root{
+  /* Light theme (base) */
+  --bg:            #F4F5F7;
+  --bg-elev:       #FFFFFF;
+  --card:          #FFFFFF;
+  --card-2:        #FAFBFC;
+  --border:        #E4E7EC;
+  --border-strong: #D0D5DD;
+  --text:          #14171F;
+  --text-2:        #4B5563;
+  --text-3:        #8A93A2;
+  --accent:        #0B7FE0;
+  --accent-soft:   rgba(11,127,224,.10);
+  --breaking:      #E5342B;
+  --breaking-soft: rgba(229,52,43,.10);
+  --rising:        #17A673;
+  --rising-soft:   rgba(23,166,115,.10);
+  --hot:           #F0891B;
+  --hot-soft:      rgba(240,137,27,.12);
+  --spark:         #0B7FE0;
+  --shadow:        0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.10);
+  --shadow-lg:     0 8px 28px rgba(16,24,40,.10);
+  --nav-bg:        rgba(255,255,255,.86);
+}
+:root[data-theme="dark"]{
+  --bg:            #0A0E17;
+  --bg-elev:       #0F1522;
+  --card:          #121A28;
+  --card-2:        #0E1622;
+  --border:        #1E2A3D;
+  --border-strong: #2A3A52;
+  --text:          #EAF0F7;
+  --text-2:        #9FB0C4;
+  --text-3:        #647388;
+  --accent:        #38BDF8;
+  --accent-soft:   rgba(56,189,248,.12);
+  --breaking:      #FF5A52;
+  --breaking-soft: rgba(255,90,82,.14);
+  --rising:        #34D399;
+  --rising-soft:   rgba(52,211,153,.14);
+  --hot:           #FBA94C;
+  --hot-soft:      rgba(251,169,76,.14);
+  --spark:         #38BDF8;
+  --shadow:        0 1px 2px rgba(0,0,0,.3);
+  --shadow-lg:     0 12px 40px rgba(0,0,0,.45);
+  --nav-bg:        rgba(12,17,26,.82);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:'cv11','ss01';
+  line-height:1.5;
+  transition:background .35s ease,color .35s ease;
+}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:9px}
+::-webkit-scrollbar-track{background:transparent}
+
+.app{max-width:1120px;margin:0 auto;min-height:100vh;position:relative;padding-bottom:96px}
+
+/* ---------- Header ---------- */
+.header{
+  position:sticky;top:0;z-index:40;
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  background:var(--nav-bg);
+  border-bottom:1px solid var(--border);
+  padding:14px 20px 12px;
+}
+.header-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-mark{
+  width:34px;height:34px;border-radius:10px;flex:none;
+  background:linear-gradient(135deg,var(--accent),#7C5CFF);
+  display:grid;place-items:center;position:relative;
+  box-shadow:0 4px 14px var(--accent-soft);
+}
+.brand-mark svg{width:20px;height:20px}
+.brand-name{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.brand-sub{display:flex;align-items:center;gap:7px;margin-top:3px}
+.live{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--breaking)}
+.live .dot{width:7px;height:7px;border-radius:50%;background:var(--breaking);box-shadow:0 0 0 0 var(--breaking);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(229,52,43,.5)}70%{box-shadow:0 0 0 7px rgba(229,52,43,0)}100%{box-shadow:0 0 0 0 rgba(229,52,43,0)}}
+.datetime{font-size:12px;color:var(--text-3);font-weight:500}
+.header-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{
+  width:38px;height:38px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card);color:var(--text-2);display:grid;place-items:center;cursor:pointer;
+  transition:.18s;flex:none;
+}
+.icon-btn:hover{color:var(--text);border-color:var(--border-strong);transform:translateY(-1px)}
+.icon-btn svg{width:18px;height:18px}
+.updated{font-size:11.5px;color:var(--text-3);margin-top:9px;display:flex;align-items:center;gap:6px;font-weight:500}
+.updated b{color:var(--text-2);font-weight:600}
+
+/* ---------- Segmented rankings toggle ---------- */
+.segment{
+  display:flex;gap:4px;margin:14px 20px 0;padding:4px;
+  background:var(--card-2);border:1px solid var(--border);border-radius:13px;
+}
+.seg-btn{
+  flex:1;padding:9px 8px;border:none;background:transparent;color:var(--text-3);
+  font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.01em;cursor:pointer;
+  border-radius:10px;transition:.2s;display:flex;flex-direction:column;align-items:center;gap:1px;
+}
+.seg-btn small{font-weight:500;font-size:10.5px;opacity:.75}
+.seg-btn.active{background:var(--card);color:var(--text);box-shadow:var(--shadow)}
+.seg-btn.active small{color:var(--accent);opacity:1}
+
+/* ---------- Section ---------- */
+.section{padding:22px 20px 4px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:15px}
+.sec-title{font-size:20px;font-weight:800;letter-spacing:-.015em}
+.sec-title .accent{color:var(--accent)}
+.sec-link{font-size:12.5px;font-weight:600;color:var(--text-3);cursor:pointer}
+.sec-link:hover{color:var(--accent)}
+
+/* ---------- Shared card ---------- */
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  box-shadow:var(--shadow);transition:transform .18s ease,border-color .18s ease,box-shadow .18s;
+  cursor:pointer;overflow:hidden;position:relative;
+}
+.card:hover{transform:translateY(-2px);border-color:var(--border-strong);box-shadow:var(--shadow-lg)}
+
+/* Badges */
+.badges{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.badge{
+  display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;
+  letter-spacing:.02em;padding:3px 8px;border-radius:7px;line-height:1.35;white-space:nowrap;
+}
+.badge svg{width:11px;height:11px}
+.b-hot{background:var(--hot-soft);color:var(--hot)}
+.b-rise{background:var(--rising-soft);color:var(--rising)}
+.b-stable{background:var(--accent-soft);color:var(--accent)}
+.b-break{background:var(--breaking-soft);color:var(--breaking)}
+.b-verify{background:var(--rising-soft);color:var(--rising)}
+.b-dev{background:var(--hot-soft);color:var(--hot)}
+.b-social{background:var(--accent-soft);color:var(--accent)}
+.b-cat{background:var(--card-2);color:var(--text-3);border:1px solid var(--border)}
+
+/* Rank number */
+.rank{font-size:13px;font-weight:800;color:var(--text-3);font-variant-numeric:tabular-nums}
+
+/* Meta row */
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px 14px;font-size:12px;color:var(--text-3);font-weight:500}
+.meta .m{display:inline-flex;align-items:center;gap:5px}
+.meta .m svg{width:12px;height:12px;opacity:.8}
+.meta .up{color:var(--rising);font-weight:700}
+.dotsep{color:var(--border-strong)}
+
+/* Sparkline */
+.spark{display:block}
+
+/* ===== #1 Hero card ===== */
+.hero{padding:0;margin-bottom:16px}
+.hero-img{width:100%;height:200px;object-fit:cover;display:block;background:var(--card-2)}
+.hero-body{padding:18px 20px 20px}
+.hero .badges{margin-bottom:11px}
+.hero-title{font-size:25px;line-height:1.16;font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
+.hero-summary{font-size:15.5px;line-height:1.62;color:var(--text-2);margin-bottom:15px;max-width:64ch}
+.why-line{
+  font-size:13px;color:var(--text-2);background:var(--card-2);border:1px solid var(--border);
+  border-radius:11px;padding:10px 13px;margin-bottom:15px;display:flex;gap:9px;line-height:1.5;
+}
+.why-line b{color:var(--text);font-weight:700}
+.why-line .lbl{color:var(--accent);font-weight:700;flex:none}
+.hero-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* ===== Medium cards (#2-5) ===== */
+.med-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.med{padding:0;display:flex;flex-direction:column}
+.med-img{width:100%;height:120px;object-fit:cover;background:var(--card-2)}
+.med-body{padding:13px 15px 15px;display:flex;flex-direction:column;gap:9px;flex:1}
+.med-top{display:flex;align-items:center;gap:9px}
+.med-title{font-size:16.5px;line-height:1.28;font-weight:700;letter-spacing:-.01em}
+.med .meta{margin-top:auto}
+
+/* ===== Compact cards (#6-10) ===== */
+.compact{display:flex;flex-direction:column;gap:2px;margin-top:8px}
+.crow{
+  display:flex;align-items:center;gap:14px;padding:14px 15px;border-radius:14px;
+  border:1px solid transparent;cursor:pointer;transition:.16s;
+}
+.crow:hover{background:var(--card);border-color:var(--border)}
+.crow .rank{font-size:15px;width:22px;flex:none;text-align:center}
+.crow-main{flex:1;min-width:0}
+.crow-title{font-size:16px;font-weight:650;line-height:1.32;letter-spacing:-.01em;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.crow-meta{font-size:11.5px;color:var(--text-3);margin-top:4px;font-weight:500}
+.crow-right{flex:none;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.crow-thumb{width:64px;height:64px;border-radius:11px;object-fit:cover;flex:none;background:var(--card-2)}
+
+/* ===== Fastest rising ===== */
+.rise-scroll{display:flex;gap:12px;overflow-x:auto;padding:2px 20px 6px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.rise-scroll::-webkit-scrollbar{display:none}
+.rise-card{
+  flex:none;width:190px;scroll-snap-align:start;padding:15px 16px;border-radius:16px;
+  background:linear-gradient(160deg,var(--card),var(--card-2));border:1px solid var(--border);
+  cursor:pointer;transition:.18s;position:relative;overflow:hidden;
+}
+.rise-card:hover{transform:translateY(-2px);border-color:var(--rising)}
+.rise-rank{font-size:11px;font-weight:800;color:var(--text-3)}
+.rise-pct{font-size:24px;font-weight:800;color:var(--rising);letter-spacing:-.02em;margin:6px 0 3px;display:flex;align-items:center;gap:5px}
+.rise-pct svg{width:16px;height:16px}
+.rise-when{font-size:10.5px;color:var(--text-3);font-weight:600;margin-bottom:9px}
+.rise-title{font-size:13.5px;font-weight:650;line-height:1.34;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ===== Podcasts ===== */
+.pod-grid{display:flex;flex-direction:column;gap:4px}
+.pod-row{display:flex;align-items:center;gap:14px;padding:11px 15px;border-radius:14px;cursor:pointer;transition:.16s;border:1px solid transparent}
+.pod-row:hover{background:var(--card);border-color:var(--border)}
+.pod-art{width:56px;height:56px;border-radius:14px;object-fit:cover;flex:none;background:var(--card-2);box-shadow:var(--shadow)}
+.pod-main{flex:1;min-width:0}
+.pod-name{font-size:15px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pod-ep{font-size:12.5px;color:var(--text-2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pod-meta{font-size:11px;color:var(--text-3);margin-top:4px;font-weight:500}
+.pod-play{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
+  background:var(--accent-soft);color:var(--accent);border:none;cursor:pointer;transition:.16s}
+.pod-play:hover{background:var(--accent);color:#fff}
+.pod-play svg{width:16px;height:16px}
+
+/* ===== World map / regions ===== */
+.map-wrap{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden}
+.map-svg{width:100%;display:block;background:radial-gradient(120% 120% at 50% 0%,var(--card-2),var(--card))}
+.region-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;padding:22px 20px 4px}
+.region{padding:14px 15px;border-radius:14px;background:var(--card);border:1px solid var(--border);cursor:pointer;transition:.16s}
+.region:hover{border-color:var(--accent);transform:translateY(-2px)}
+.region-name{font-size:13px;font-weight:700;letter-spacing:.01em;display:flex;align-items:center;gap:7px}
+.region-flag{font-size:16px}
+.region-count{font-size:22px;font-weight:800;margin-top:6px;letter-spacing:-.02em}
+.region-count small{font-size:12px;color:var(--text-3);font-weight:600;margin-left:4px}
+.region-bar{height:4px;border-radius:4px;background:var(--border);margin-top:9px;overflow:hidden}
+.region-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#7C5CFF);border-radius:4px}
+
+/* ---------- Bottom nav ---------- */
+.nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:50;
+  background:var(--nav-bg);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-around;padding:9px 8px calc(9px + env(safe-area-inset-bottom));
+}
+.nav-inner{max-width:1120px;margin:0 auto;width:100%;display:flex;justify-content:space-around}
+.nav-btn{
+  background:none;border:none;cursor:pointer;color:var(--text-3);font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 14px;border-radius:12px;transition:.16s;
+}
+.nav-btn svg{width:22px;height:22px}
+.nav-btn span{font-size:11px;font-weight:600;letter-spacing:.01em}
+.nav-btn.active{color:var(--accent)}
+.nav-btn.active svg{transform:translateY(-1px)}
+
+/* ---------- Skeleton ---------- */
+.skeleton{background:linear-gradient(100deg,var(--card) 30%,var(--card-2) 50%,var(--card) 70%);
+  background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:14px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.sk-hero{height:200px;border-radius:18px;margin-bottom:16px}
+.sk-line{height:14px;margin:8px 0;border-radius:6px}
+.sk-med{height:200px;border-radius:18px}
+
+/* ---------- Empty / error ---------- */
+.state{text-align:center;padding:56px 30px;color:var(--text-3)}
+.state svg{width:46px;height:46px;margin-bottom:14px;opacity:.5}
+.state h3{font-size:17px;font-weight:700;color:var(--text-2);margin-bottom:7px}
+.state p{font-size:13.5px;max-width:38ch;margin:0 auto 18px;line-height:1.55}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:11px;
+  background:var(--accent);color:#fff;border:none;font-family:inherit;font-size:13.5px;font-weight:700;
+  cursor:pointer;transition:.16s}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn.ghost{background:var(--card);color:var(--text-2);border:1px solid var(--border)}
+
+/* ---------- Modal (detail) ---------- */
+.modal-scrim{
+  position:fixed;inset:0;z-index:100;background:rgba(6,10,16,.62);backdrop-filter:blur(4px);
+  display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .28s;
+}
+.modal-scrim.open{opacity:1;pointer-events:auto}
+.modal{
+  width:100%;max-width:760px;max-height:94vh;overflow-y:auto;background:var(--bg-elev);
+  border-radius:22px 22px 0 0;border:1px solid var(--border);transform:translateY(30px);transition:transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.modal-scrim.open .modal{transform:translateY(0)}
+@media(min-width:760px){.modal-scrim{align-items:center}.modal{border-radius:22px;max-height:90vh}}
+.modal-hero{width:100%;height:230px;object-fit:cover;background:var(--card-2)}
+.modal-close{position:absolute;top:14px;right:14px;z-index:5}
+.modal-body{padding:22px 24px 40px}
+.mtitle{font-size:24px;font-weight:800;line-height:1.2;letter-spacing:-.02em;margin:12px 0 12px}
+.mblock{margin:22px 0}
+.mblock h4{font-size:12px;font-weight:800;letter-spacing:.09em;color:var(--accent);text-transform:uppercase;margin-bottom:9px}
+.mblock p{font-size:15px;line-height:1.65;color:var(--text-2)}
+.ai-note{font-size:11.5px;color:var(--text-3);display:flex;align-items:center;gap:6px;margin-top:8px;font-weight:500}
+.ai-note svg{width:13px;height:13px}
+
+/* Why-trending signal bars */
+.signals{display:flex;flex-direction:column;gap:11px;margin-top:6px}
+.sig{display:grid;grid-template-columns:118px 1fr 42px;align-items:center;gap:12px}
+.sig-lbl{font-size:12.5px;font-weight:600;color:var(--text-2)}
+.sig-bar{height:8px;border-radius:6px;background:var(--border);overflow:hidden}
+.sig-bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),#7C5CFF);transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.sig-val{font-size:12px;font-weight:700;color:var(--text-2);text-align:right;font-variant-numeric:tabular-nums}
+
+/* Source comparison */
+.src-cmp{display:flex;flex-direction:column;gap:9px}
+.src-item{padding:12px 14px;border-radius:12px;background:var(--card);border:1px solid var(--border)}
+.src-item .s-name{font-size:12px;font-weight:800;color:var(--accent);letter-spacing:.02em;margin-bottom:4px}
+.src-item .s-head{font-size:14px;line-height:1.4;color:var(--text)}
+
+/* Timeline */
+.timeline{position:relative;padding-left:22px}
+.timeline::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:var(--border)}
+.tl-item{position:relative;padding-bottom:16px}
+.tl-item::before{content:"";position:absolute;left:-21px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg-elev);box-shadow:0 0 0 3px var(--accent-soft)}
+.tl-time{font-size:12px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+.tl-text{font-size:13.5px;color:var(--text-2);margin-top:2px;line-height:1.45}
+
+/* Related podcast chip in modal */
+.rel-pod{display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;background:var(--card);border:1px solid var(--border);margin-bottom:8px;cursor:pointer}
+.rel-pod img{width:44px;height:44px;border-radius:10px;object-fit:cover;flex:none}
+.rel-pod .rp-name{font-size:13.5px;font-weight:700}
+.rel-pod .rp-sub{font-size:11.5px;color:var(--text-3);margin-top:1px}
+
+/* Search */
+.search-wrap{padding:14px 20px 0}
+.search-box{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:13px;padding:11px 15px}
+.search-box:focus-within{border-color:var(--accent)}
+.search-box svg{width:18px;height:18px;color:var(--text-3);flex:none}
+.search-box input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:inherit;font-size:15px}
+.search-box input::placeholder{color:var(--text-3)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:12px 20px 0}
+.chip{padding:7px 13px;border-radius:20px;background:var(--card);border:1px solid var(--border);font-size:12.5px;font-weight:600;color:var(--text-2);cursor:pointer;transition:.14s}
+.chip:hover,.chip.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+
+/* Settings */
+.set-group{margin:8px 20px 20px;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.set-group h5{font-size:11px;font-weight:800;letter-spacing:.09em;color:var(--text-3);text-transform:uppercase;padding:15px 16px 8px}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;border-top:1px solid var(--border)}
+.set-row:first-of-type{border-top:none}
+.set-row .sr-l{font-size:14.5px;font-weight:600}
+.set-row .sr-d{font-size:12px;color:var(--text-3);margin-top:2px}
+.seg-mini{display:flex;gap:3px;background:var(--card-2);border:1px solid var(--border);border-radius:10px;padding:3px}
+.seg-mini button{border:none;background:none;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--text-3);padding:6px 12px;border-radius:8px;cursor:pointer;transition:.15s}
+.seg-mini button.on{background:var(--card);color:var(--text);box-shadow:var(--shadow)}
+.select{background:var(--card-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:13px;font-weight:600;padding:8px 12px;cursor:pointer}
+.feed-item{display:flex;align-items:center;gap:12px;padding:13px 16px;border-top:1px solid var(--border)}
+.feed-dot{width:9px;height:9px;border-radius:50%;flex:none}
+.feed-name{font-size:14px;font-weight:600;flex:1}
+.feed-status{font-size:11.5px;color:var(--text-3);font-weight:500}
+.toggle{width:42px;height:24px;border-radius:24px;background:var(--border-strong);position:relative;cursor:pointer;transition:.2s;flex:none;border:none}
+.toggle.on{background:var(--accent)}
+.toggle::after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}
+.toggle.on::after{transform:translateX(18px)}
+
+.prototype-banner{
+  font-size:11px;color:var(--text-3);text-align:center;padding:14px 20px 4px;font-weight:500;line-height:1.5;
+}
+.prototype-banner b{color:var(--text-2)}
+
+.hidden{display:none!important}
+.view{animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+@media(max-width:560px){
+  .med-grid{grid-template-columns:1fr}
+  .hero-title{font-size:22px}
+  .sig{grid-template-columns:96px 1fr 38px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        </div>
+        <div>
+          <div class="brand-name">Global Pulse</div>
+          <div class="brand-sub">
+            <span class="live"><span class="dot"></span>LIVE</span>
+            <span class="datetime" id="datetime"></span>
+          </div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="searchBtn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+          <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn" id="refreshBtn" aria-label="Refresh">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="updated" id="updatedRow">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <span id="offlinePill" class="badge b-break hidden" style="margin-right:2px">● OFFLINE · SAMPLE DATA</span>
+      Last updated <b id="lastUpdated">just now</b> · Next update in <b id="nextUpdate">5 min</b>
+    </div>
+  </header>
+
+  <!-- ========== HOME VIEW ========== -->
+  <main id="view-home" class="view">
+    <div class="segment">
+      <button class="seg-btn active" data-rank="trending">TRENDING<small>Gaining attention fastest</small></button>
+      <button class="seg-btn" data-rank="important">IMPORTANT<small>Greatest global significance</small></button>
+    </div>
+
+    <section class="section">
+      <div class="sec-head">
+        <div class="sec-title">World Top <span class="accent">10</span></div>
+        <div class="sec-link" id="rankLabel">Trending now</div>
+      </div>
+      <div id="topList"><!-- rendered --></div>
+    </section>
+
+    <section class="section" id="riseSection">
+      <div class="sec-head">
+        <div class="sec-title">Fastest <span class="accent">Rising</span></div>
+        <div class="sec-link">Last 60 min</div>
+      </div>
+    </section>
+    <div class="rise-scroll" id="riseList"></div>
+
+    <section class="section">
+      <div class="sec-head">
+        <div class="sec-title">For <span class="accent">You</span></div>
+        <div class="sec-link" id="fyEdit">Edit topics</div>
+      </div>
+      <div class="chips" id="fyChips" style="padding:0 0 4px"></div>
+      <div id="fyList"></div>
+    </section>
+
+    <section class="section">
+      <div class="sec-head">
+        <div class="sec-title">Top <span class="accent">Podcasts</span></div>
+        <div class="sec-link" data-goto="podcasts">See all</div>
+      </div>
+      <div class="pod-grid" id="homePods"></div>
+    </section>
+
+    <section class="section">
+      <div class="sec-head">
+        <div class="sec-title">World <span class="accent">Map</span></div>
+        <div class="sec-link" data-goto="world">Explore</div>
+      </div>
+      <div class="map-wrap" id="homeMap"></div>
+    </section>
+
+    <div class="prototype-banner">
+      <b>Design prototype.</b> Headlines, sources, timestamps &amp; clustering are live from public RSS feeds.
+      Trend-velocity %, sparklines &amp; social signals are <b>simulated</b> (a production build computes these from stored historical snapshots).
+    </div>
+  </main>
+
+  <!-- ========== NEWS VIEW ========== -->
+  <main id="view-news" class="view hidden">
+    <div class="chips" id="catChips"></div>
+    <section class="section">
+      <div class="sec-head"><div class="sec-title" id="newsCatTitle">World</div><div class="sec-link" id="newsCount"></div></div>
+      <div id="newsList"></div>
+    </section>
+  </main>
+
+  <!-- ========== PODCASTS VIEW ========== -->
+  <main id="view-podcasts" class="view hidden">
+    <section class="section">
+      <div class="sec-head"><div class="sec-title">Top 10 <span class="accent">Podcasts</span></div><div class="sec-link">News &amp; Politics</div></div>
+      <div class="pod-grid" id="allPods"></div>
+    </section>
+    <section class="section">
+      <div class="sec-head"><div class="sec-title">Trending <span class="accent">Episodes</span></div></div>
+      <div class="pod-grid" id="allEps"></div>
+    </section>
+  </main>
+
+  <!-- ========== WORLD VIEW ========== -->
+  <main id="view-world" class="view hidden">
+    <section class="section" style="padding-bottom:0">
+      <div class="sec-head"><div class="sec-title">World <span class="accent">Trend Map</span></div></div>
+    </section>
+    <div style="padding:0 20px"><div class="map-wrap" id="worldMap"></div></div>
+    <div class="region-grid" id="regionGrid"></div>
+    <section class="section" style="margin-top:10px">
+      <div class="sec-head"><div class="sec-title" id="regionTitle">Regional Top 10</div><div class="sec-link" id="regionSub">World</div></div>
+      <div id="regionList"></div>
+    </section>
+  </main>
+
+  <!-- ========== SEARCH VIEW ========== -->
+  <main id="view-search" class="view hidden">
+    <div class="search-wrap">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="searchInput" placeholder="Search stories, podcasts, countries, topics…" autocomplete="off">
+      </div>
+    </div>
+    <div class="chips" id="searchChips"></div>
+    <section class="section"><div id="searchResults"></div></section>
+  </main>
+
+  <!-- ========== SETTINGS VIEW ========== -->
+  <main id="view-settings" class="view hidden">
+    <section class="section" style="padding-bottom:6px"><div class="sec-title">Settings</div></section>
+    <div class="set-group">
+      <h5>Appearance</h5>
+      <div class="set-row">
+        <div><div class="sr-l">Theme</div><div class="sr-d">Dark, light or match system</div></div>
+        <div class="seg-mini" id="themeSeg">
+          <button data-t="dark">Dark</button><button data-t="light">Light</button><button data-t="system">System</button>
+        </div>
+      </div>
+      <div class="set-row">
+        <div><div class="sr-l">Text size</div><div class="sr-d">Reading comfort</div></div>
+        <div class="seg-mini" id="sizeSeg">
+          <button data-s="0.94">S</button><button data-s="1" class="on">M</button><button data-s="1.08">L</button><button data-s="1.16">XL</button>
+        </div>
+      </div>
+    </div>
+    <div class="set-group">
+      <h5>News</h5>
+      <div class="set-row">
+        <div><div class="sr-l">Refresh frequency</div><div class="sr-d">Background update interval</div></div>
+        <select class="select" id="refreshSel">
+          <option>Manual</option><option selected>5 min</option><option>10 min</option><option>15 min</option><option>30 min</option><option>1 hour</option>
+        </select>
+      </div>
+    </div>
+    <div class="set-group" id="feedGroup">
+      <h5>Sources &amp; feed status</h5>
+    </div>
+    <div class="set-group">
+      <h5>Notifications</h5>
+      <div class="set-row"><div><div class="sr-l">Breaking news</div><div class="sr-d">Only high-confidence events</div></div><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
+      <div class="set-row"><div><div class="sr-l">Top 10 changes</div><div class="sr-d">When rankings shift</div></div><button class="toggle" onclick="this.classList.toggle('on')"></button></div>
+      <div class="set-row"><div><div class="sr-l">Fast-rising stories</div><div class="sr-d">Rapid attention spikes</div></div><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
+      <div class="set-row"><div><div class="sr-l">Daily briefing</div><div class="sr-d">Morning &amp; evening summary</div></div><button class="toggle" onclick="this.classList.toggle('on')"></button></div>
+    </div>
+    <div class="set-group">
+      <h5>Privacy &amp; data</h5>
+      <div class="set-row"><div><div class="sr-l">Personalization</div><div class="sr-d">“For You” recommendations</div></div><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
+      <div class="set-row"><div><div class="sr-l">Clear reading history</div></div><button class="btn ghost" style="padding:8px 14px">Clear</button></div>
+    </div>
+    <div class="prototype-banner" style="padding-bottom:30px">Global Pulse · Prototype v0.1 · Built to the Global Pulse product spec</div>
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <button class="nav-btn active" data-view="home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span>Home</span>
+      </button>
+      <button class="nav-btn" data-view="news">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>News</span>
+      </button>
+      <button class="nav-btn" data-view="podcasts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/></svg><span>Podcasts</span>
+      </button>
+      <button class="nav-btn" data-view="world">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>World</span>
+      </button>
+      <button class="nav-btn" data-view="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Settings</span>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-scrim" id="modal">
+  <div class="modal">
+    <div style="position:relative">
+      <img class="modal-hero" id="mHero" alt="">
+      <button class="icon-btn modal-close" id="mClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   GLOBAL PULSE — Prototype engine
+   Live RSS via public CORS proxy → normalize → cluster →
+   trend score → render. Trend velocity is simulated (labeled).
+   ============================================================ */
+/* Live feeds need a CORS-enabled relay. No single free relay is reliable
+   (rate limits / downtime), so we try an ordered chain until one succeeds. */
+const RSS2JSON = u => `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(u)}&count=25`;
+const XML_PROXIES = [
+  u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+  u => `https://corsproxy.io/?url=${encodeURIComponent(u)}`,
+  u => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(u)}`,
+  u => `https://thingproxy.freeboard.io/fetch/${u}`,
+];
+function imgFromHtml(h){const m=(h||'').match(/<img[^>]+src="([^">]+)"/);return m?m[1]:''}
+function parsePubDate(s){if(!s)return Date.now();const t=Date.parse(s.includes('T')?s:s.replace(' ','T')+'Z');return isNaN(t)?Date.now():t}
+
+const FEEDS = [
+  {name:'BBC',        cat:'World',      color:'#B80000', url:'https://feeds.bbci.co.uk/news/world/rss.xml'},
+  {name:'The Guardian',cat:'World',     color:'#052962', url:'https://www.theguardian.com/world/rss'},
+  {name:'Al Jazeera', cat:'World',      color:'#FA9000', url:'https://www.aljazeera.com/xml/rss/all.xml'},
+  {name:'DW',         cat:'World',      color:'#00A5E5', url:'https://rss.dw.com/rdf/rss-en-all'},
+  {name:'NPR',        cat:'World',      color:'#E60000', url:'https://feeds.npr.org/1001/rss.xml'},
+  {name:'France 24',  cat:'World',      color:'#1F3C88', url:'https://www.france24.com/en/rss'},
+  {name:'Sky News',   cat:'World',      color:'#F60',    url:'https://feeds.skynews.com/feeds/rss/world.xml'},
+  {name:'CNBC',       cat:'Business',   color:'#005594', url:'https://www.cnbc.com/id/100003114/device/rss/rss.html'},
+  {name:'Ars Technica',cat:'Technology',color:'#FF4E00', url:'https://feeds.arstechnica.com/arstechnica/index'},
+  {name:'NASA',       cat:'Science',    color:'#0B3D91', url:'https://www.nasa.gov/feed/'},
+];
+
+const STOP = new Set('the a an and or but of to in on at for with by from as is are was were be been being this that these those it its his her their our your my we they he she you i us them not no new say says said after over into out up down about more most other some such than then once here there all any can will would could may might amid over against under during while has have had do does did get got make made just like get new latest update report reports live video watch photos'.split(/\s+/));
+const CAT_KEYS={
+  Politics:['election','president','minister','parliament','senate','government','vote','policy','congress','diplomatic','sanction'],
+  Business:['market','stock','economy','trade','company','earnings','shares','inflation','bank','fed','ceo','revenue','deal'],
+  Technology:['ai','tech','software','chip','apple','google','microsoft','startup','app','cyber','data','robot','openai'],
+  Science:['space','nasa','study','researchers','scientists','climate','physics','launch','planet','satellite','discovery'],
+  Health:['health','virus','disease','vaccine','hospital','who','outbreak','medical','drug','cancer'],
+  Sports:['match','cup','league','win','championship','olympic','final','player','coach','goal','tournament'],
+  World:['war','attack','military','border','protest','summit','crisis','strike','killed','forces','talks'],
+};
+const REGION_KEYS={
+  'India':{flag:'🇮🇳',k:['india','delhi','modi','mumbai','indian','bengal','karnataka']},
+  'North America':{flag:'🇺🇸',k:['us ','u.s','america','washington','biden','trump','canada','mexico','york','california']},
+  'Europe':{flag:'🇪🇺',k:['europe','uk','britain','london','france','germany','ukraine','russia','paris','berlin','eu ','italy','spain']},
+  'Middle East':{flag:'🕌',k:['israel','gaza','iran','saudi','qatar','syria','lebanon','yemen','emirates','tehran','palest']},
+  'Asia-Pacific':{flag:'🌏',k:['china','japan','korea','beijing','taiwan','australia','pacific','asia','tokyo','philippine','indonesia']},
+  'Africa':{flag:'🌍',k:['africa','nigeria','kenya','egypt','ethiopia','sudan','congo','south africa','ghana']},
+  'South America':{flag:'🌎',k:['brazil','argentina','chile','colombia','venezuela','peru','latin']},
+};
+
+let ALL=[], CLUSTERS=[], PODS=[], EPS=[], CURRENT_RANK='trending', REFRESH_MS=5*60*1000, refreshTimer, OFFLINE=false, PODS_SAMPLE=false, FY_EDIT=false;
+
+/* Personalized "For You" topics — never replaces World Top 10 (spec §30). */
+const FORYOU_TOPICS={
+  'AI':['ai','artificial intelligence','openai','chatbot','model','machine learning','neural','anthropic','llm'],
+  'Space':['space','nasa','rocket','satellite','asteroid','mars','moon','launch','orbit','spacex','galaxy'],
+  'Business':['market','economy','stock','business','trade','earnings','bank','inflation','revenue','deal','ceo'],
+  'Technology':['tech','software','app','google','apple','microsoft','chip','startup','cyber','data','robot'],
+  'Science':['study','research','scientists','discovery','physics','biology','genome','quantum'],
+  'Defence':['military','defense','defence','war','weapon','army','missile','troops','forces','nato'],
+  'Climate':['climate','emissions','warming','wildfire','flood','environment','carbon','energy','renewable'],
+  'Health':['health','virus','vaccine','disease','hospital','outbreak','medical','cancer','who'],
+  'Politics':['election','president','minister','parliament','vote','policy','senate','government','diplomat'],
+  'Sports':['match','cup','league','championship','olympic','final','player','tournament','goal'],
+};
+let FY_SELECTED=['AI','Space','Business','Science']; // persisted value loaded during init
+
+/* Bundled sample data — final fallback so the app is never empty (offline mode).
+   Clearly labeled OFFLINE in the UI; replaced the moment live feeds succeed. */
+function sampleArticles(){
+  const now=Date.now(),m=60000;
+  const mk=(t,d,src,cat,mins)=>({title:t,desc:d,link:'#',img:'',source:src,color:'#888',cat,published:now-mins*m});
+  return [
+    mk('Global summit opens with new climate finance pledge from major economies','World leaders gathered as several nations announced a joint fund aimed at accelerating clean-energy transition in developing countries.','Reuters','World',12),
+    mk('Leaders agree landmark climate finance package at global summit','A coalition of economies committed billions toward emerging-market energy projects, though details on disbursement remain under negotiation.','BBC','World',24),
+    mk('Climate summit: nations pledge fund but disagreements persist over targets','Negotiators welcomed the finance commitment while cautioning that emissions-reduction timelines are still contested.','Al Jazeera','World',31),
+    mk('Central bank holds rates steady, signals caution on inflation outlook','Policymakers kept the benchmark rate unchanged, citing mixed signals in the labour market and easing but still-elevated prices.','Bloomberg','Business',18),
+    mk('Markets rise as central bank keeps rates on hold','Equities climbed after the decision, with investors weighing guidance for the remainder of the year.','CNBC','Business',40),
+    mk('New AI model shows major leap in scientific reasoning benchmarks','Researchers reported state-of-the-art results on graduate-level problem sets, reigniting debate over evaluation methods.','Ars Technica','Technology',9),
+    mk('AI system posts record scores on reasoning tests, researchers say','The results were released alongside a technical report; independent verification is pending.','The Guardian','Technology',22),
+    mk('Spacecraft returns first close-up images from distant asteroid flyby','Mission scientists released initial imagery revealing an unexpectedly varied surface, with full data downlink continuing.','NASA','Science',47),
+    mk('Probe beams back detailed pictures in historic asteroid encounter','The flyby marks a milestone for the mission, which will spend weeks transmitting collected measurements.','DW','Science',58),
+    mk('Health officials report progress against seasonal outbreak in several regions','Authorities said case numbers were declining but urged continued precautions as monitoring continues.','NPR','Health',66),
+    mk('Regional talks resume amid cautious optimism over ceasefire framework','Mediators described the latest round as constructive, though key sticking points remain unresolved.','France 24','World',35),
+    mk('Diplomatic push gains momentum as parties return to negotiating table','Officials from multiple countries met to advance a proposed framework, with further sessions expected.','Sky News','World',52),
+    mk('Major tech firm unveils next-generation chip aimed at AI workloads','The company said the processor delivers significant efficiency gains; shipping is expected later this year.','CNBC','Technology',73),
+    mk('Football: dramatic late goal decides continental championship semifinal','A stoppage-time strike sent the match to a decider, sparking celebrations among travelling supporters.','BBC','Sports',88),
+    mk('Record heat prompts warnings across multiple continents','Meteorological agencies issued alerts as temperatures climbed, straining energy grids in several areas.','The Guardian','Climate',95),
+  ];
+}
+const SAMPLE_PODS=[
+  {name:'Global News Daily',artist:'World Media Network',cat:'News',pct:74},
+  {name:'World Politics Today',artist:'Public Radio Intl.',cat:'News',pct:61},
+  {name:'The Intelligence',artist:'Current Affairs Co.',cat:'News',pct:58},
+  {name:'International Briefing',artist:'News Collective',cat:'News',pct:52},
+  {name:'Tech & Science Weekly',artist:'Frontier Media',cat:'Technology',pct:47},
+  {name:'The Daily Explainer',artist:'Longform Studio',cat:'News',pct:44},
+  {name:'Markets & Money',artist:'Finance Desk',cat:'Business',pct:39},
+  {name:'Science Frontiers',artist:'Discovery Audio',cat:'Science',pct:35},
+  {name:'The World in 10',artist:'Global Times Audio',cat:'News',pct:31},
+  {name:'Deep Dive Reports',artist:'Investigative Unit',cat:'News',pct:27},
+].map((p,i)=>({rank:i+1,...p,feed:'',art:'',ep:'Latest episode analysing today’s top global story',len:(28+i*3)+' min',epTitle:'Today’s top story, explained'}));
+
+/* ---------- Utilities ---------- */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function seeded(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return((h>>>0)%1000)/1000}
+function plu(n,w){return n+' '+w+(n===1?'':'s')}
+function timeAgo(d){if(!d)return'';const s=(Date.now()-d)/1000;if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+' min ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
+function stripHtml(h){const t=document.createElement('div');t.innerHTML=h||'';return(t.textContent||'').replace(/\s+/g,' ').trim()}
+function words(t){return stripHtml(t).toLowerCase().replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(w=>w.length>3&&!STOP.has(w))}
+
+/* ---------- Fetch & parse (proxy fallback chain) ---------- */
+function normalizeJson(f,items){
+  return items.slice(0,25).map(it=>({
+    title:stripHtml(it.title),
+    desc:stripHtml(it.description||it.content||'').slice(0,320),
+    link:it.link||'',
+    img:it.thumbnail||it.enclosure?.link||imgFromHtml(it.content||it.description)||'',
+    source:f.name,color:f.color,cat:f.cat,published:parsePubDate(it.pubDate)
+  })).filter(a=>a.title);
+}
+function normalizeXml(f,text){
+  const xml=new DOMParser().parseFromString(text,'text/xml');
+  if(xml.querySelector('parsererror'))return[];
+  const items=[...xml.querySelectorAll('item, entry')].slice(0,25);
+  return items.map(it=>{
+    const g=t=>it.querySelector(t)?.textContent?.trim()||'';
+    let link=g('link')||it.querySelector('link')?.getAttribute('href')||'';
+    let img='';
+    const mc=it.querySelector('content, thumbnail, [medium="image"]')||it.querySelector('enclosure');
+    if(mc)img=mc.getAttribute('url')||'';
+    if(!img)img=imgFromHtml(g('encoded')||g('description')||g('summary'));
+    const desc=stripHtml(g('description')||g('summary')||g('encoded')).slice(0,320);
+    return {title:stripHtml(g('title')),desc,link,img,source:f.name,color:f.color,cat:f.cat,
+            published:parsePubDate(g('pubDate')||g('published')||g('updated')||g('date'))};
+  }).filter(a=>a.title);
+}
+async function withTimeout(p,ms){return Promise.race([p,new Promise((_,r)=>setTimeout(()=>r(0),ms))])}
+async function fetchFeed(f){
+  // 1) rss2json (clean JSON)
+  try{
+    const res=await withTimeout(fetch(RSS2JSON(f.url)),12000);
+    if(res&&res.ok){
+      const d=await res.json();
+      if(d.status==='ok'&&Array.isArray(d.items)&&d.items.length){
+        const items=normalizeJson(f,d.items);
+        if(items.length){f._ok=true;f._count=items.length;return items}
+      }
+    }
+  }catch(e){}
+  // 2) XML proxy chain
+  for(const px of XML_PROXIES){
+    try{
+      const res=await withTimeout(fetch(px(f.url)),12000);
+      if(!res||!res.ok)continue;
+      const items=normalizeXml(f,await res.text());
+      if(items.length){f._ok=true;f._count=items.length;return items}
+    }catch(e){}
+  }
+  f._ok=false;f._count=0;return[];
+}
+async function fetchFeedText(url){
+  for(const px of XML_PROXIES){
+    try{const res=await withTimeout(fetch(px(url)),12000);if(res&&res.ok)return await res.text()}catch(e){}
+  }
+  return'';
+}
+
+/* ---------- Clustering (keyword Jaccard + union-find) ---------- */
+function clusterArticles(arts){
+  const kw=arts.map(a=>new Set(words(a.title+' '+a.desc.slice(0,80))));
+  const parent=arts.map((_,i)=>i);
+  const find=x=>{while(parent[x]!==x){parent[x]=parent[parent[x]];x=parent[x]}return x};
+  const uni=(a,b)=>{parent[find(a)]=find(b)};
+  for(let i=0;i<arts.length;i++)for(let j=i+1;j<arts.length;j++){
+    const A=kw[i],B=kw[j];if(A.size<2||B.size<2)continue;
+    let inter=0;A.forEach(w=>{if(B.has(w))inter++});
+    const uni_=A.size+B.size-inter, sim=inter/uni_;
+    if(sim>=0.26||(inter>=4&&sim>=0.2))uni(i,j);
+  }
+  const groups={};arts.forEach((a,i)=>{const r=find(i);(groups[r]=groups[r]||[]).push(a)});
+  return Object.values(groups).map(g=>{
+    g.sort((a,b)=>b.published-a.published);
+    const sources=[...new Set(g.map(a=>a.source))];
+    const lead=g.find(a=>a.img)||g[0];
+    const text=(lead.title+' '+lead.desc).toLowerCase();
+    // category
+    let cat=lead.cat,best=0;
+    for(const[c,ks]of Object.entries(CAT_KEYS)){const n=ks.filter(k=>text.includes(k)).length;if(n>best){best=n;cat=c}}
+    // regions
+    const regions=[];const allText=g.map(a=>a.title+' '+a.desc).join(' ').toLowerCase();
+    for(const[r,o]of Object.entries(REGION_KEYS))if(o.k.some(k=>allText.includes(k)))regions.push(r);
+    return {id:seeded(lead.title)+''+g.length,articles:g,sources,lead,cat,regions,
+            latest:g[0].published,title:lead.title,desc:lead.desc};
+  });
+}
+
+/* ---------- Scoring (velocity simulated & labeled) ---------- */
+function scoreClusters(cl){
+  const now=Date.now();
+  cl.forEach(c=>{
+    const s=seeded(c.title);
+    const recencyH=(now-c.latest)/3.6e6;
+    const recency=Math.max(0,1-recencyH/24);           // 0..1 fresher=higher
+    const srcN=c.sources.length;
+    const coverage=Math.min(1,srcN/8);
+    const geo=Math.min(1,c.regions.length/4);
+    const social=0.35+s*0.6;                            // simulated
+    const searchInt=0.3+seeded(c.title+'x')*0.6;        // simulated
+    const podAct=0.2+seeded(c.title+'p')*0.7;           // simulated
+    // "heat" = simulated attention momentum. Mostly per-story pseudo-random
+    // so states spread out (not everything EXPLODING), nudged by recency.
+    const heat=s*0.66+recency*0.34;
+    const velocity=heat;
+    // TREND: attention speed
+    c.trend=Math.round((velocity*30+coverage*20+social*15+velocity*10+geo*10+podAct*5+searchInt*5+coverage*5));
+    // IMPORTANCE: significance & breadth
+    c.importance=Math.round((coverage*34+geo*24+recency*14+srcN/12*100*0.1+ (['World','Politics','Science','Business'].includes(c.cat)?14:4)));
+    c.importance=Math.min(99,Math.max(20,c.importance));
+    c.trend=Math.min(99,Math.max(20,c.trend));
+    // velocity % (simulated, labeled in UI) — quadratic so only the hottest spike
+    c.pct60=Math.round(heat*heat*430+6);
+    c.pct3h=Math.round(heat*175+8);
+    c.pct24=Math.round(heat*65+5);
+    c.state=heat>0.80?'explode':heat>0.55?'rise':heat>0.30?'stable':'decline';
+    c.countries=Math.max(2,Math.round(c.regions.length*4+srcN*1.5+s*6));
+    c.signals={news:Math.round(coverage*100),social:Math.round(social*100),velocity:Math.round(velocity*100),reach:Math.round(geo*100),podcast:Math.round(podAct*100)};
+    // verification
+    c.verify=srcN>=4?'verified':srcN>=2?'developing':'social';
+    // sparkline (simulated shape trending toward current state)
+    c.spark=Array.from({length:14},(_,i)=>{const base=seeded(c.title+i);const trend=c.state==='decline'?(14-i)/14:i/14;return 0.15+base*0.35+trend*0.5});
+  });
+  return cl;
+}
+
+/* ---------- Podcasts (iTunes Search API — no CORS header, so proxied) ---------- */
+async function loadPodcasts(){
+  try{
+    const itunes='https://itunes.apple.com/search?term=news&media=podcast&entity=podcast&limit=12';
+    let d=null;
+    try{const txt=await fetchFeedText(itunes);if(txt)d=JSON.parse(txt)}catch(e){}
+    if(!d||!d.results){PODS=[];EPS=[];return}
+    PODS=d.results.filter(p=>p.collectionName).slice(0,10).map((p,i)=>({
+      rank:i+1,name:p.collectionName,art:p.artworkUrl100?.replace('100x100','200x200')||p.artworkUrl100,
+      artist:p.artistName,cat:p.primaryGenreName||'News',feed:p.feedUrl,
+      pct:Math.round(20+seeded(p.collectionName)*90),ep:'Latest episode',len:''
+    }));
+    // pull episodes from a couple feeds
+    EPS=[];
+    await Promise.allSettled(PODS.slice(0,6).map(async p=>{
+      if(!p.feed)return;
+      let it=null;
+      try{
+        const res=await withTimeout(fetch(RSS2JSON(p.feed)),12000);
+        if(res&&res.ok){const d=await res.json();if(d.status==='ok'&&d.items)it=d.items[0]}
+      }catch(e){}
+      if(!it){
+        const txt=await fetchFeedText(p.feed);
+        if(txt){const el=new DOMParser().parseFromString(txt,'text/xml').querySelector('item');
+          if(el)it={title:el.querySelector('title')?.textContent,pubDate:el.querySelector('pubDate')?.textContent}}
+      }
+      if(it){
+        p.ep=stripHtml(it.title||'Latest episode');
+        const dur=it.enclosure?.duration||'';
+        p.len=dur?(String(dur).includes(':')?dur:Math.round(dur/60)+' min'):'';
+        EPS.push({...p,epTitle:p.ep,when:parsePubDate(it.pubDate),pct:Math.round(15+seeded(p.ep)*80)});
+      }
+    }));
+    EPS.sort((a,b)=>b.pct-a.pct);
+  }catch(e){PODS=[];EPS=[]}
+}
+
+/* ---------- Icons ---------- */
+const IC={
+  fire:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 3-1 4-1 6a2 2 0 0 0 4 0c2 2 3 4 3 7a6 6 0 0 1-12 0c0-2 1-4 2-5 0 1 1 2 2 2 0-3 1-5 2-10z"/></svg>',
+  up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>',
+  right:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  down:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7 7 17M15 17H7V9"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+  src:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>',
+  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18"/></svg>',
+  play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg>',
+  ai:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg>',
+};
+function stateBadge(c){
+  const m={explode:['b-hot',IC.fire,'EXPLODING'],rise:['b-rise',IC.up,'RISING'],stable:['b-stable',IC.right,'STABLE'],decline:['b-social',IC.down,'DECLINING']};
+  const[cls,ic,txt]=m[c.state];return `<span class="badge ${cls}">${ic}${txt}</span>`;
+}
+function verifyBadge(c){
+  if(c.verify==='verified')return `<span class="badge b-verify">${IC.check}VERIFIED · ${c.sources.length} SOURCES</span>`;
+  if(c.verify==='developing')return `<span class="badge b-dev">● DEVELOPING</span>`;
+  return `<span class="badge b-social">◐ SOCIAL REPORTING</span>`;
+}
+function sparkSVG(data,w=88,h=26,color='var(--spark)'){
+  const max=Math.max(...data),min=Math.min(...data),rng=max-min||1;
+  const pts=data.map((v,i)=>[i/(data.length-1)*w,h-((v-min)/rng)*(h-4)-2]);
+  const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  const area=d+` L${w} ${h} L0 ${h} Z`;
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".28"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs><path d="${area}" fill="url(#sg)"/><path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+function fallbackImg(c){
+  const hue=Math.floor(seeded(c.title)*360);
+  return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="400" height="220"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${hue},55%,32%)"/><stop offset="1" stop-color="hsl(${(hue+50)%360},50%,20%)"/></linearGradient></defs><rect width="400" height="220" fill="url(#g)"/></svg>`)}`;
+}
+
+/* ---------- Render Home Top 10 ---------- */
+function rankedClusters(){
+  const key=CURRENT_RANK==='trending'?'trend':'importance';
+  return [...CLUSTERS].sort((a,b)=>b[key]-a[key]).slice(0,10);
+}
+function renderTop(){
+  const list=rankedClusters();
+  const el=$('#topList');
+  if(!list.length){el.innerHTML=emptyState();return}
+  const scoreKey=CURRENT_RANK==='trending'?'trend':'importance';
+  const c0=list[0];
+  let html=`
+  <div class="card hero" data-cid="${c0.id}">
+    <img class="hero-img" src="${c0.lead.img||fallbackImg(c0)}" onerror="this.src='${fallbackImg(c0)}'" alt="">
+    <div class="hero-body">
+      <div class="badges">
+        <span class="rank">01</span>${stateBadge(c0)}${verifyBadge(c0)}<span class="badge b-cat">${esc(c0.cat)}</span>
+      </div>
+      <h2 class="hero-title">${esc(c0.title)}</h2>
+      <p class="hero-summary">${esc(c0.desc||'Multiple sources are reporting on this developing story.')}</p>
+      <div class="why-line"><span class="lbl">Why trending</span><span>Coverage across <b>${plu(c0.sources.length,'independent source')}</b> spanning <b>${c0.countries} ${c0.countries===1?'country':'countries'}</b>, with activity up <b>+${c0.pct60}%</b> in the last hour.</span></div>
+      <div class="hero-foot">
+        <div class="meta">
+          <span class="m">${IC.src}${plu(c0.sources.length,'source')}</span>
+          <span class="m up">${IC.up}+${c0.pct60}%</span>
+          <span class="m">${IC.globe}${c0.countries} countries</span>
+          <span class="m">TREND ${c0[scoreKey]}</span>
+        </div>
+        ${sparkSVG(c0.spark,96,30)}
+      </div>
+    </div>
+  </div>`;
+
+  // medium #2-5
+  const meds=list.slice(1,5);
+  if(meds.length){
+    html+='<div class="med-grid">';
+    meds.forEach((c,i)=>{
+      html+=`<div class="card med" data-cid="${c.id}">
+        <img class="med-img" src="${c.lead.img||fallbackImg(c)}" onerror="this.src='${fallbackImg(c)}'" alt="">
+        <div class="med-body">
+          <div class="med-top"><span class="rank">0${i+2}</span>${stateBadge(c)}</div>
+          <div class="med-title">${esc(c.title)}</div>
+          <div class="meta">
+            <span class="m">${plu(c.sources.length,'source')}</span><span class="dotsep">·</span>
+            <span class="up">+${c.pct60}%</span><span class="dotsep">·</span>
+            <span>${timeAgo(c.latest)}</span>
+          </div>
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  }
+
+  // compact #6-10
+  const comp=list.slice(5,10);
+  if(comp.length){
+    html+='<div class="compact">';
+    comp.forEach((c,i)=>{
+      html+=`<div class="crow" data-cid="${c.id}">
+        <span class="rank">${String(i+6).padStart(2,'0')}</span>
+        <div class="crow-main">
+          <div class="crow-title">${esc(c.title)}</div>
+          <div class="crow-meta">${esc(c.sources.slice(0,3).join(' · '))} · ${plu(c.sources.length,'source')} · +${c.pct60}%</div>
+        </div>
+        <div class="crow-right">${sparkSVG(c.spark,60,22)}<span class="badge ${c.state==='decline'?'b-social':'b-rise'}" style="padding:2px 6px">${scoreKey==='trend'?'T':'I'} ${c[scoreKey]}</span></div>
+      </div>`;
+    });
+    html+='</div>';
+  }
+  el.innerHTML=html;
+}
+
+/* ---------- Fastest rising ---------- */
+function renderRising(){
+  const list=[...CLUSTERS].filter(c=>c.sources.length>=1).sort((a,b)=>b.pct60-a.pct60).slice(0,8);
+  $('#riseList').innerHTML=list.map((c,i)=>`
+    <div class="rise-card" data-cid="${c.id}">
+      <div class="rise-rank">${String(i+1).padStart(2,'0')}</div>
+      <div class="rise-pct">${IC.up}+${c.pct60}%</div>
+      <div class="rise-when">Last 60 min</div>
+      <div class="rise-title">${esc(c.title)}</div>
+    </div>`).join('');
+}
+
+/* ---------- For You (personalized, never replaces World Top 10) ---------- */
+function matchesTopics(c,topics){
+  const t=(c.title+' '+c.desc+' '+c.cat).toLowerCase();
+  return topics.some(top=>(FORYOU_TOPICS[top]||[]).some(k=>t.includes(k))||c.cat===top);
+}
+function renderForYou(){
+  const chips=$('#fyChips');
+  const all=Object.keys(FORYOU_TOPICS);
+  chips.classList.toggle('hidden',!FY_EDIT);
+  $('#fyEdit').textContent=FY_EDIT?'Done':'Edit topics';
+  if(FY_EDIT){
+    chips.innerHTML=all.map(t=>`<span class="chip ${FY_SELECTED.includes(t)?'active':''}" data-fy="${t}">${t}</span>`).join('');
+  }
+  const list=[...CLUSTERS].filter(c=>matchesTopics(c,FY_SELECTED)).sort((a,b)=>b.trend-a.trend).slice(0,6);
+  const el=$('#fyList');
+  if(!FY_SELECTED.length){el.innerHTML=`<div class="state" style="padding:26px"><p>No topics selected. Tap <b>Edit topics</b> to personalize this feed.</p></div>`;return}
+  if(!list.length){el.innerHTML=`<div class="state" style="padding:26px"><p>No current stories match <b>${esc(FY_SELECTED.join(', '))}</b> yet. They'll appear here as coverage develops.</p></div>`;return}
+  el.innerHTML='<div class="compact">'+list.map(c=>`
+    <div class="crow" data-cid="${c.id}">
+      <img class="crow-thumb" src="${c.lead.img||fallbackImg(c)}" onerror="this.src='${fallbackImg(c)}'" alt="">
+      <div class="crow-main"><div class="crow-title">${esc(c.title)}</div>
+        <div class="crow-meta"><span class="badge b-cat" style="padding:1px 6px">${esc(c.cat)}</span> ${esc(c.sources.slice(0,2).join(' · '))} · +${c.pct60}%</div></div>
+      <div class="crow-right">${sparkSVG(c.spark,60,22)}</div>
+    </div>`).join('')+'</div>';
+}
+
+/* ---------- Podcasts render ---------- */
+function podRow(p){
+  return `<div class="pod-row" data-feed="${esc(p.feed||'')}">
+    <img class="pod-art" src="${p.art||fallbackImg({title:p.name})}" onerror="this.src='${fallbackImg({title:p.name})}'" alt="">
+    <div class="pod-main">
+      <div class="pod-name">🎙 ${esc(p.name)}</div>
+      <div class="pod-ep">${esc(p.epTitle||p.ep||'')}</div>
+      <div class="pod-meta">${esc(p.artist||p.cat)} ${p.len?'· '+esc(p.len):''} · <span style="color:var(--rising);font-weight:700">+${p.pct}% trending</span></div>
+    </div>
+    <button class="pod-play" aria-label="Play">${IC.play}</button>
+  </div>`;
+}
+function renderPods(){
+  if(!PODS.length){$('#homePods').innerHTML=dataUnavailable('podcast rankings');$('#allPods').innerHTML=dataUnavailable('podcast rankings');return}
+  const note=PODS_SAMPLE?`<div class="pod-meta" style="padding:2px 15px 8px;color:var(--text-3)">Live podcast directory unavailable — showing sample data</div>`:'';
+  $('#homePods').innerHTML=note+PODS.slice(0,4).map(podRow).join('');
+  $('#allPods').innerHTML=note+PODS.map(podRow).join('');
+  $('#allEps').innerHTML=(EPS.length?EPS:PODS).slice(0,10).map(podRow).join('');
+}
+
+/* ---------- World map + regions ---------- */
+function regionCounts(){
+  const counts={};for(const r in REGION_KEYS)counts[r]=0;
+  CLUSTERS.forEach(c=>c.regions.forEach(r=>counts[r]+=c.sources.length));
+  return counts;
+}
+function mapSVG(counts){
+  const max=Math.max(1,...Object.values(counts));
+  const pos={'North America':[95,120],'South America':[150,240],'Europe':[300,95],'Africa':[315,190],'Middle East':[360,150],'India':[430,165],'Asia-Pacific':[500,140]};
+  let dots='';
+  for(const[r,o]of Object.entries(REGION_KEYS)){
+    const p=pos[r];if(!p)continue;const v=counts[r]/max;const rad=6+v*16;
+    dots+=`<g class="mapdot" data-region="${r}" style="cursor:pointer">
+      <circle cx="${p[0]}" cy="${p[1]}" r="${rad+8}" fill="var(--accent)" opacity="${0.06+v*0.12}"/>
+      <circle cx="${p[0]}" cy="${p[1]}" r="${rad}" fill="var(--accent)" opacity="${0.35+v*0.5}"/>
+      <text x="${p[0]}" y="${p[1]-rad-6}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--text-2)">${counts[r]}</text>
+    </g>`;
+  }
+  return `<svg class="map-svg" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid meet">
+    <path d="M40 90 Q80 70 130 85 T210 90 Q240 80 270 95 L300 80 Q360 70 420 90 T540 100 Q560 130 540 170 L480 200 Q420 210 360 195 T240 210 Q180 230 140 210 T60 180 Q35 140 40 90Z" fill="var(--card-2)" stroke="var(--border)" stroke-width="1.5" opacity=".6"/>
+    ${dots}
+  </svg>`;
+}
+function renderMaps(){
+  const counts=regionCounts();
+  $('#homeMap').innerHTML=mapSVG(counts);
+  $('#worldMap').innerHTML=mapSVG(counts);
+  const max=Math.max(1,...Object.values(counts));
+  $('#regionGrid').innerHTML=Object.entries(REGION_KEYS).map(([r,o])=>`
+    <div class="region" data-region="${r}">
+      <div class="region-name"><span class="region-flag">${o.flag}</span>${r}</div>
+      <div class="region-count">${counts[r]}<small>signals</small></div>
+      <div class="region-bar"><i style="width:${Math.round(counts[r]/max*100)}%"></i></div>
+    </div>`).join('');
+  renderRegionList('World',null);
+}
+function renderRegionList(name,rkey){
+  $('#regionTitle').textContent=name==='World'?'World Top 10':name+' Top 10';
+  $('#regionSub').textContent=name;
+  let list=CLUSTERS;
+  if(rkey)list=CLUSTERS.filter(c=>c.regions.includes(rkey));
+  list=[...list].sort((a,b)=>b.trend-a.trend).slice(0,10);
+  if(!list.length){$('#regionList').innerHTML=emptyState();return}
+  $('#regionList').innerHTML='<div class="compact">'+list.map((c,i)=>`
+    <div class="crow" data-cid="${c.id}">
+      <span class="rank">${String(i+1).padStart(2,'0')}</span>
+      <div class="crow-main"><div class="crow-title">${esc(c.title)}</div>
+        <div class="crow-meta">${esc(c.sources.slice(0,3).join(' · '))} · +${c.pct60}%</div></div>
+      <div class="crow-right">${sparkSVG(c.spark,60,22)}</div>
+    </div>`).join('')+'</div>';
+}
+
+/* ---------- News view ---------- */
+const CATS=['World','Politics','Business','Technology','Science','Health','Sports'];
+function renderNews(cat='World'){
+  $('#catChips').innerHTML=CATS.map(c=>`<span class="chip ${c===cat?'active':''}" data-cat="${c}">${c}</span>`).join('');
+  $('#newsCatTitle').textContent=cat;
+  const list=[...CLUSTERS].filter(c=>c.cat===cat).sort((a,b)=>b.latest-a.latest);
+  $('#newsCount').textContent=list.length+' stories';
+  if(!list.length){$('#newsList').innerHTML=emptyState();return}
+  $('#newsList').innerHTML='<div class="compact">'+list.map((c,i)=>`
+    <div class="crow" data-cid="${c.id}">
+      <img class="crow-thumb" src="${c.lead.img||fallbackImg(c)}" onerror="this.src='${fallbackImg(c)}'" alt="">
+      <div class="crow-main"><div class="crow-title">${esc(c.title)}</div>
+        <div class="crow-meta">${esc(c.sources.slice(0,3).join(' · '))} · ${plu(c.sources.length,'source')} · ${timeAgo(c.latest)}</div></div>
+      <div class="crow-right"><span class="badge ${c.state==='explode'?'b-hot':c.state==='rise'?'b-rise':'b-stable'}" style="padding:2px 7px">+${c.pct60}%</span></div>
+    </div>`).join('')+'</div>';
+}
+
+/* ---------- Search ---------- */
+function renderSearch(q){
+  const box=$('#searchResults');
+  if(!q||q.length<2){box.innerHTML=`<div class="state"><h3>Search Global Pulse</h3><p>Find stories, podcasts, countries and topics across every live source.</p></div>`;return}
+  const ql=q.toLowerCase();
+  const cl=CLUSTERS.filter(c=>(c.title+c.desc+c.sources.join()).toLowerCase().includes(ql)).sort((a,b)=>b.trend-a.trend).slice(0,12);
+  const pd=PODS.filter(p=>(p.name+p.artist).toLowerCase().includes(ql));
+  let html='';
+  if(cl.length){html+='<div class="sec-title" style="font-size:16px;margin-bottom:10px">Stories</div><div class="compact">'+cl.map(c=>`
+    <div class="crow" data-cid="${c.id}"><div class="crow-main"><div class="crow-title">${esc(c.title)}</div>
+    <div class="crow-meta">${esc(c.sources.slice(0,3).join(' · '))} · +${c.pct60}%</div></div>
+    <div class="crow-right">${sparkSVG(c.spark,60,22)}</div></div>`).join('')+'</div>';}
+  if(pd.length){html+='<div class="sec-title" style="font-size:16px;margin:20px 0 10px">Podcasts</div><div class="pod-grid">'+pd.map(podRow).join('')+'</div>';}
+  box.innerHTML=html||`<div class="state"><h3>No results for “${esc(q)}”</h3><p>Try a country, topic, publisher or event name.</p></div>`;
+}
+
+/* ---------- Detail modal ---------- */
+function openDetail(cid){
+  const c=CLUSTERS.find(x=>x.id===cid);if(!c)return;
+  $('#mHero').src=c.lead.img||fallbackImg(c);
+  $('#mHero').onerror=function(){this.src=fallbackImg(c)};
+  const sig=c.signals;
+  const timeline=buildTimeline(c);
+  const cmp=c.articles.slice(0,5).map(a=>`<div class="src-item"><div class="s-name">${esc(a.source)}</div><div class="s-head">${esc(a.title)}</div></div>`).join('');
+  const relPods=(PODS.slice(0,3)).map(p=>`<div class="rel-pod" data-feed="${esc(p.feed||'')}"><img src="${p.art||fallbackImg({title:p.name})}"><div><div class="rp-name">${esc(p.name)}</div><div class="rp-sub">${esc(p.artist||'')}</div></div></div>`).join('');
+  $('#mBody').innerHTML=`
+    <div class="badges" style="margin-top:2px">${stateBadge(c)}${verifyBadge(c)}<span class="badge b-cat">${esc(c.cat)}</span></div>
+    <h1 class="mtitle">${esc(c.title)}</h1>
+    <div class="meta"><span class="m">${IC.src}${plu(c.sources.length,'source')}</span><span class="m up">${IC.up}+${c.pct60}% (60m)</span><span class="m">${IC.globe}${c.countries} ${c.countries===1?'country':'countries'}</span><span class="m">${timeAgo(c.latest)}</span></div>
+
+    <div class="mblock">
+      <h4>AI Summary</h4>
+      <p>${esc(c.desc||'This story is being reported by multiple independent outlets.')} Coverage consolidated from ${c.sources.length} source${c.sources.length>1?'s':''}: ${esc(c.sources.slice(0,5).join(', '))}.</p>
+      <div class="ai-note">${IC.ai} AI-generated summary · grounded in ${c.articles.length} retrieved reports</div>
+    </div>
+
+    <div class="mblock">
+      <h4>Why is this trending?</h4>
+      <div class="signals">
+        ${sigBar('News coverage',sig.news)}
+        ${sigBar('Social activity',sig.social)}
+        ${sigBar('Growth velocity',sig.velocity)}
+        ${sigBar('Global reach',sig.reach)}
+        ${sigBar('Podcast activity',sig.podcast)}
+      </div>
+      <div class="ai-note" style="margin-top:12px">Activity increased <b style="color:var(--rising)">+${c.pct60}%</b> in the last 60 min · <b>+${c.pct3h}%</b> (3h) · <b>+${c.pct24}%</b> (24h) — <span style="opacity:.8">velocity simulated in prototype</span></div>
+    </div>
+
+    <div class="mblock">
+      <h4>Multi-source summary</h4>
+      <p><b style="color:var(--text)">Confirmed:</b> Reported consistently across ${c.sources.length} outlets.<br>
+      <b style="color:var(--text)">Reported:</b> ${esc(stripHtml(c.articles[0]?.desc||'').slice(0,140)||'Details still emerging.')}<br>
+      <b style="color:var(--text)">Unconfirmed:</b> Some specifics vary between sources and are still developing.</p>
+    </div>
+
+    <div class="mblock">
+      <h4>How different sources are reporting this</h4>
+      <div class="src-cmp">${cmp}</div>
+    </div>
+
+    <div class="mblock">
+      <h4>Story timeline</h4>
+      <div class="timeline">${timeline}</div>
+    </div>
+
+    ${PODS.length?`<div class="mblock"><h4>Related podcasts</h4>${relPods}</div>`:''}
+
+    <a class="btn" href="${esc(c.lead.link)}" target="_blank" rel="noopener" style="text-decoration:none;margin-top:6px">
+      Read original at ${esc(c.lead.source)}
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+    </a>`;
+  $('#modal').classList.add('open');
+  requestAnimationFrame(()=>$$('.sig-bar i').forEach(i=>i.style.width=i.dataset.w));
+}
+function sigBar(lbl,v){return `<div class="sig"><span class="sig-lbl">${lbl}</span><div class="sig-bar"><i data-w="${v}%" style="width:0"></i></div><span class="sig-val">${v}%</span></div>`}
+function buildTimeline(c){
+  const arts=[...c.articles].sort((a,b)=>a.published-b.published).slice(0,5);
+  const fmt=t=>new Date(t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  const labels=['First report','International coverage begins','Additional confirmation','Social activity accelerates','Latest update'];
+  return arts.map((a,i)=>`<div class="tl-item"><div class="tl-time">${fmt(a.published)}</div><div class="tl-text"><b>${esc(a.source)}</b> — ${esc((a.title).slice(0,90))}</div></div>`).join('')
+    || `<div class="tl-item"><div class="tl-time">${fmt(c.latest)}</div><div class="tl-text">${labels[0]}</div></div>`;
+}
+
+/* ---------- States ---------- */
+function emptyState(){return `<div class="state">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>
+  <h3>No significant trend detected</h3><p>Not enough independent signals are currently available to identify a meaningful global trend.</p>
+  <button class="btn" onclick="refreshAll()">Refresh</button></div>`}
+function dataUnavailable(what){return `<div class="state" style="padding:30px"><h3>Data unavailable</h3><p>Live ${what} could not be retrieved right now.</p><button class="btn ghost" onclick="loadPodcasts().then(renderPods)">Try again</button></div>`}
+function errorState(){return `<div class="state">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+  <h3>Unable to refresh sources</h3><p>We couldn't reach the feed proxy. Check your connection and try again.</p>
+  <button class="btn" onclick="refreshAll()">Try again</button></div>`}
+function skeleton(){
+  $('#topList').innerHTML=`<div class="skeleton sk-hero"></div><div class="med-grid"><div class="skeleton sk-med"></div><div class="skeleton sk-med"></div></div>
+  <div style="margin-top:14px">${'<div class="skeleton sk-line" style="height:52px;margin:8px 0"></div>'.repeat(4)}</div>`;
+}
+
+/* ---------- Refresh orchestration ---------- */
+let lastUpdatedTime=Date.now();
+async function refreshAll(){
+  skeleton();
+  $('#lastUpdated').textContent='updating…';
+  try{
+    const results=await Promise.allSettled(FEEDS.map(fetchFeed));
+    ALL=results.flatMap(r=>r.status==='fulfilled'?r.value:[]);
+    OFFLINE=!ALL.length;
+    if(OFFLINE)ALL=sampleArticles();            // graceful degradation
+    // dedupe exact titles
+    const seen=new Set();ALL=ALL.filter(a=>{const k=a.title.toLowerCase().slice(0,60);if(seen.has(k))return false;seen.add(k);return true});
+    CLUSTERS=scoreClusters(clusterArticles(ALL));
+    lastUpdatedTime=Date.now();
+    renderTop();renderRising();renderForYou();renderMaps();renderNews();renderFeedStatus();
+  }catch(e){$('#topList').innerHTML=errorState()}
+  await loadPodcasts();
+  PODS_SAMPLE=false;
+  if(!PODS||!PODS.length){PODS=SAMPLE_PODS;EPS=SAMPLE_PODS;PODS_SAMPLE=true;}
+  renderPods();
+  setOffline(OFFLINE);
+  updateClock();
+}
+function renderFeedStatus(){
+  const g=$('#feedGroup');
+  g.innerHTML='<h5>Sources &amp; feed status</h5>'+FEEDS.map(f=>`
+    <div class="feed-item">
+      <span class="feed-dot" style="background:${f._ok?'var(--rising)':'var(--breaking)'}"></span>
+      <span class="feed-name">${f.name}</span>
+      <span class="feed-status">${f._ok?f._count+' items · live':'unavailable'}</span>
+      <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+    </div>`).join('');
+}
+
+/* ---------- Offline indicator ---------- */
+function setOffline(on){
+  $('#offlinePill').classList.toggle('hidden',!on);
+  document.querySelector('.live').style.opacity=on?'.4':'1';
+}
+/* ---------- Clock ---------- */
+function updateClock(){
+  const now=new Date();
+  const opts={weekday:'long',day:'numeric',month:'long',year:'numeric'};
+  $('#datetime').textContent=now.toLocaleDateString('en-GB',opts)+' · '+now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  $('#lastUpdated').textContent=timeAgo(lastUpdatedTime);
+  const mins=Math.max(0,Math.round((REFRESH_MS-(Date.now()-lastUpdatedTime))/60000));
+  $('#nextUpdate').textContent=REFRESH_MS?mins+' min':'manual';
+}
+setInterval(updateClock,20000);
+
+/* ---------- Navigation ---------- */
+function switchView(v){
+  $$('.view').forEach(m=>m.classList.add('hidden'));
+  $('#view-'+v).classList.remove('hidden');
+  $$('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
+  if(v==='news')renderNews($('.chip.active')?.dataset.cat||'World');
+  if(v==='podcasts')renderPods();
+  if(v==='world')renderMaps();
+  window.scrollTo(0,0);
+}
+
+/* ---------- Events ---------- */
+document.addEventListener('click',e=>{
+  const card=e.target.closest('[data-cid]');
+  if(card){openDetail(card.dataset.cid);return}
+  const goto=e.target.closest('[data-goto]');
+  if(goto){switchView(goto.dataset.goto);return}
+  const nav=e.target.closest('.nav-btn');
+  if(nav){switchView(nav.dataset.view);return}
+  const seg=e.target.closest('.seg-btn');
+  if(seg){$$('.seg-btn').forEach(b=>b.classList.remove('active'));seg.classList.add('active');CURRENT_RANK=seg.dataset.rank;$('#rankLabel').textContent=CURRENT_RANK==='trending'?'Trending now':'Most important';renderTop();return}
+  const chip=e.target.closest('.chip[data-cat]');
+  if(chip){renderNews(chip.dataset.cat);return}
+  if(e.target.closest('#fyEdit')){FY_EDIT=!FY_EDIT;renderForYou();return}
+  const fy=e.target.closest('.chip[data-fy]');
+  if(fy){const t=fy.dataset.fy;FY_SELECTED=FY_SELECTED.includes(t)?FY_SELECTED.filter(x=>x!==t):[...FY_SELECTED,t];store.set('gp-foryou',JSON.stringify(FY_SELECTED));renderForYou();return}
+  const region=e.target.closest('[data-region]');
+  if(region){const r=region.dataset.region;switchView('world');renderRegionList(r,r);$('#regionList').scrollIntoView({behavior:'smooth',block:'start'});return}
+  const play=e.target.closest('.pod-play');
+  if(play){const row=play.closest('[data-feed]');const f=row?.dataset.feed;if(f)window.open(f,'_blank');e.stopPropagation();return}
+  const feedRow=e.target.closest('.pod-row[data-feed], .rel-pod[data-feed]');
+  if(feedRow&&feedRow.dataset.feed){window.open(feedRow.dataset.feed,'_blank');return}
+});
+$('#mClose').onclick=()=>$('#modal').classList.remove('open');
+$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').classList.remove('open')};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#modal').classList.remove('open')});
+
+$('#refreshBtn').onclick=refreshAll;
+$('#searchBtn').onclick=()=>{switchView('search');setTimeout(()=>$('#searchInput').focus(),100)};
+$('#searchInput').oninput=e=>renderSearch(e.target.value.trim());
+$('#searchChips').innerHTML=['World','India','AI','Space','Business','Climate','Middle East','Technology'].map(t=>`<span class="chip" data-search="${t}">${t}</span>`).join('');
+$('#searchChips').onclick=e=>{const c=e.target.closest('[data-search]');if(c){$('#searchInput').value=c.dataset.search;renderSearch(c.dataset.search)}};
+
+/* Theme */
+function applyTheme(t){
+  if(t==='system'){document.documentElement.removeAttribute('data-theme');const dark=matchMedia('(prefers-color-scheme:dark)').matches;setThemeIcon(dark)}
+  else{document.documentElement.setAttribute('data-theme',t);setThemeIcon(t==='dark')}
+  store.set('gp-theme',t);
+  $$('#themeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+}
+function setThemeIcon(dark){
+  $('#themeIcon').innerHTML=dark
+    ?'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'
+    :'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>';
+}
+$('#themeBtn').onclick=()=>{const cur=document.documentElement.getAttribute('data-theme')||'dark';applyTheme(cur==='dark'?'light':'dark')};
+$('#themeSeg').onclick=e=>{const b=e.target.closest('[data-t]');if(b)applyTheme(b.dataset.t)};
+$('#sizeSeg').onclick=e=>{const b=e.target.closest('[data-s]');if(b){$$('#sizeSeg button').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.documentElement.style.fontSize=(16*+b.dataset.s)+'px'}};
+$('#refreshSel').onchange=e=>{const v=e.target.value;const map={'Manual':0,'5 min':5,'10 min':10,'15 min':15,'30 min':30,'1 hour':60};REFRESH_MS=map[v]*60000;clearInterval(refreshTimer);if(REFRESH_MS)refreshTimer=setInterval(refreshAll,REFRESH_MS);updateClock()};
+
+/* ---------- Init ---------- */
+try{const fy=JSON.parse(store.get('gp-foryou'));if(Array.isArray(fy))FY_SELECTED=fy}catch(e){}
+applyTheme(store.get('gp-theme')||'dark');
+updateClock();
+refreshAll();
+refreshTimer=setInterval(refreshAll,REFRESH_MS);
+</script>
+</body>
+</html>
